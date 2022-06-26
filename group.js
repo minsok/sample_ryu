@@ -4,6 +4,7 @@ var isSubmit = false;
 $(function(){
     // メンバー追加処理
     $('#addAccounts').on('click', function(){
+        // ボタンを2度押ししている場合
         if(isSubmit){
             alert("処理中です");
             return false;
@@ -29,6 +30,7 @@ $(function(){
         if (document.getElementById('txtGroupName') != null){
             groupName = document.getElementById('txtGroupName').value;
         }
+        // パラメータの設定
         var data = {
             'selectedAccountList' : selectedAccountList
             , 'groupName' : groupName

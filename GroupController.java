@@ -45,6 +45,7 @@ public class GroupController {
             // 画面メッセージの設定
             mv.addObject("memberInfoMes", massagessource.getMassage("memberInfoMes", new String[]{memberSum}, Locale.Japan));
             mv.addObject("btnTitle", massagessource.getMassage("goConfirm", null, Locale.Japan));
+            // ボタンのパスを設定
             mv.addObject("btnPath", "group/regist/confirm");
             mv.addObject("btnReturn", "group/search");
         }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}" ></title>
+<script type="text/javascript" th:src="@{/js/group.js}"></script>
+</head>
+<body>
+    <div class="pagetitle">
+        <img class="icon" th:src="@{/img/icon-group.svg}" th:alt="#{groupiconinfo}">
+        <h1 class="grouptitle" th:text="${groupinfotitle}"></h1>
+    </div>
+    <div class="txtGroupName" th:if="${(isRegist) || (isUpdate)}">
+        <div class="itemName" th:text="#{groupname}"></div>
+        <div class="inputForm">
+            <input type="text" th:if="{error == null}" name="txtGroupName" class="inputTextForm" th:value="${groupName}">
+            <div th:if="{error != null}">
+                <p class="errorMes" th:text="${errormessage}" th:each="errormessage : ${error.messagesGroup}"></p>
+            </div>
+        </div>
+    </div>
+    <form th:action="|${btnPath}|" name="form" method="post" th:if="${isGroup}">
+        <div class="lblGroupname" th:if="${(isReference) || (registConfirm) || (updateConfirm)}">
+            <div class="itemName" th:text="#{groupname}"></div>
+            <div class="itemValue"><label th:text="${gtoupName}"></label></div>
+        </div>
+        <div class="btnMembersModal" th:if="${(isRegist) || (isUpdate)}">
+            <label class="itemTitle" th:text="#{selectmembers}"></label>
+            <input type="button"  class="button1" id="membersmodal" th:value="${membersselection}">
+            <div class="btnDeselectMembers button1" >
+                <label class="itemTitle" th:text="#{deselectmembersinfo}"></label>
+            </div>
+            <input type="button" class="button1" id="deselectmodal" th:value="#{deselectmembers}">
+        </div>
+        <h3 th:text="#{selectedmembers}" class="tableTitle"></h3>
+        <div class="tableContainer" th:if="${((isRegist) || (isUpdate)) && (memberList != null)}">
+            <table class="tableLayout">
+                <thead>
+                    <tr>
+                        <th class="chkLayOut" th:if="${(isRegist) || (isUpdate)}" class="chkLauout"><label class="tableTitle"></label></th>
+                        <th><label class="tableTitle" th:text="#{name}"></label></th>
+                        <th><label class="tableTitle" th:text="#{grade}"></label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="selectedMember : ${selectedMembers}">
+                        <td class="chkLayOut" th:if="${(isRegist) || (isUpdate)}" class="chkLauout">
+                            <input type="checkbox" class="chkMember" th:id="'chk_' + ${selectedMember.user_id}" th:name="'chk_' + ${selectedMember.user_id}" th:value="${selectedMember.user_id}">
+                            <label class="tableTitle"></label>
+                        </td>
+                        <td><label class="tableData" th:text="${selectedMember.name}"></label></td>
+                        <td><label class="tableData" th:text="${selectedMember.grade}"></label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btnConfirmContainer" th:if="${(isRegist) || (isUpdate)}">
+            <div class="btnConfirm">
+                <input type="submit" class="button1" th:value="${btnTitle}">
+            </div>
+        </div>
+    </form>
+</body>
+</html>
